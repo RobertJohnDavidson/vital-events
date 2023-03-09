@@ -4,7 +4,7 @@ import { SessionProvider } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { Source_Sans_3, Oswald } from "@next/font/google";
-
+import NavigationMenu from "~/components/NavigationMenu/NavigationMenu";
 import "~/styles/globals.css";
 
 const sourceSans = Source_Sans_3({
@@ -28,7 +28,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
           }
         `}
       </style>
-      <Component {...pageProps} />
+      <div className="relative mx-auto max-w-screen-2xl">
+        <NavigationMenu />
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   );
 };

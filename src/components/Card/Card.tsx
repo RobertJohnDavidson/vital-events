@@ -9,40 +9,39 @@ type Card = {
 };
 
 const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
-  console.log(link);
   return (
     //a card component that will be used to display events
-    <div className="flex w-full max-w-sm rounded bg-slate-50 shadow-lg lg:max-w-full">
+    <div className="flex max-w-sm flex-col justify-center rounded bg-slate-50 p-4 shadow-lg ">
       {/* image for card */}
-      <div className="flex-shrink-0">
+      <div className="relative mx-auto h-[20rem] w-[20rem] overflow-hidden ">
         <img
-          className="h-48 w-full object-cover lg:h-full lg:w-48"
+          className="absolute h-full w-full object-cover"
           src={imgURL}
           alt="Event Image"
-          width={300}
-          height={300}
         />
+        <div
+          className="absolute bottom-0 flex h-1/2  w-full  flex-row
+        items-center justify-center rounded-xl bg-gradient-to-t from-gray-900 opacity-50"
+        >
+          {" "}
+        </div>
       </div>
-      <div className="flex flex-1 flex-col justify-between p-4">
-        {/* title of event */}
-        <div className="flex-1">
-          <div className="mb-2 text-sm font-bold">{promoters} Present</div>
-          <div className="text-xl font-semibold text-gray-900">{title}</div>
-          <div className="mt-3 text-base text-gray-500">{venue}</div>
-        </div>
-        {/* date and ticket link */}
-        <div className="mt-6 flex flex-col items-center">
-          <div className="flex-shrink-0">
-            <span>{date}</span>
-          </div>
-          <div className="ml-3">
-            <p className="text-lg font-medium text-gray-900">
-              <a href={link} className="hover:underline">
-                Buy Tickets
-              </a>
-            </p>
-          </div>
-        </div>
+      {/* card content */}
+      <div className="flex flex-col items-start justify-center gap-2 p-4">
+        <p className="text-sm font-light text-gray-500">{promoters}</p>
+        <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
+        <p className="text-sm font-light text-gray-500">{venue}</p>
+        <p className="text-sm font-light text-gray-500">{date}</p>
+
+        {/* button */}
+        <a
+          href={link}
+          className="rounded-sm bg-purple-800 p-2 text-lg font-bold text-gray-100 shadow-md hover:bg-purple-600"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Buy Tickets
+        </a>
       </div>
     </div>
   );
