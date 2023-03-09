@@ -20,5 +20,9 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["cdn.sanity.io"],
+    loader: "custom",
+  },
 };
 export default config;

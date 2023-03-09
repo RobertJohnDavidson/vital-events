@@ -6,8 +6,9 @@ type NavigationMenuProps = {};
 
 const NavigationMenu = (props: NavigationMenuProps) => {
   return (
-    <NavigationMenuPrimitive.Root className="relative m-2 min-w-[25%] rounded-sm bg-white p-2 dark:bg-gray-500">
+    <NavigationMenuPrimitive.Root className="relative w-full rounded-sm bg-gray-900 p-2">
       <NavigationMenuPrimitive.List className="flex flex-row justify-center space-x-20 ">
+        <NavigationMenuPrimitive.Item asChild></NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item asChild>
           <NavigationMenuPrimitive.Link
             href="https://github.com/ecklf/tailwindcss-radix"
