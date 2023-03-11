@@ -4,9 +4,9 @@ import { SessionProvider } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { Source_Sans_3, Oswald } from "@next/font/google";
-import NavigationMenu from "~/components/NavigationMenu/NavigationMenu";
+import Layout from "~/components/Layout/Layout";
 import "~/styles/globals.css";
-import Footer from "~/components/Footer/Footer";
+
 const sourceSans = Source_Sans_3({
   subsets: ["latin"],
 });
@@ -28,11 +28,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           }
         `}
       </style>
-      <div className="relative mx-auto max-w-screen-2xl">
-        <NavigationMenu />
-        <Component {...pageProps} />
-        <Footer />
-      </div>
+      <Layout>{<Component {...pageProps} />}</Layout>
     </SessionProvider>
   );
 };

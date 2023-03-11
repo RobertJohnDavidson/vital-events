@@ -12,27 +12,10 @@ const ErrorPage: NextPage<{ events: Event[] }> = ({ events }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-white bg-gradient-to-t ">
-        <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1 md:grid-cols-2">
-          {events.map(
-            ({ _id, title, promoters, venue, date, link, imgURL }) => (
-              <Card
-                key={_id}
-                title={title}
-                promoters={promoters}
-                venue={venue}
-                date={new Date(date).toLocaleDateString("en-us", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "numeric",
-                  day: "numeric",
-                })}
-                link={link}
-                imgURL={imgURL}
-              />
-            )
-          )}
-        </div>
+      <main className="flex flex-col items-center justify-center bg-white ">
+        {/*404 language*/}
+        <h1 className="text-6xl font-bold">404</h1>
+        <h2 className="text-2xl font-bold">Page Not Found</h2>
       </main>
     </>
   );
