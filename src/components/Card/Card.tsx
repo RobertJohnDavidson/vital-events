@@ -11,11 +11,11 @@ type Card = {
 const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
   return (
     //a card component that will be used to display events
-    <div className="flex h-full max-w-sm flex-col justify-between rounded bg-slate-50 p-4 shadow-lg ">
+    <div className="z-0 flex h-full max-w-sm flex-col justify-between rounded bg-slate-50 p-4 shadow-lg">
       {/* image for card */}
       <div className="relative mx-auto aspect-square h-auto w-[20rem] max-w-full overflow-hidden ">
         <img
-          className="absolute h-full w-full object-cover"
+          className="h-full w-full object-cover"
           src={imgURL}
           alt="Event Image"
         />
