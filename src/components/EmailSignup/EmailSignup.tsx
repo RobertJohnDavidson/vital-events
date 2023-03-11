@@ -1,6 +1,6 @@
 const EmailSignup = () => {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="w-full bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl py-8 px-4 lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md sm:text-center">
           <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
