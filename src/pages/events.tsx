@@ -22,7 +22,7 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-white bg-gradient-to-t ">
+      <main className="flex h-full flex-col items-center justify-center bg-white bg-gradient-to-t ">
         <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1 md:grid-cols-2">
           {events.map(
             ({ _id, title, promoters, venue, date, link, imgURL }) => (

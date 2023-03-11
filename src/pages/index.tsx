@@ -26,7 +26,7 @@ const Home: NextPage<{ events: Event[] }> = ({ events }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex flex-col items-center justify-center bg-white bg-gradient-to-t "></main>
+      <main className="flex h-full flex-col items-center justify-center bg-white bg-gradient-to-t "></main>
     </>
   );
 };
