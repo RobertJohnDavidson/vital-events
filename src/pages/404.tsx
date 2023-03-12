@@ -12,7 +12,7 @@ const ErrorPage: NextPage<{ events: Event[] }> = ({ events }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex h-full flex-col items-center justify-center bg-white ">
+      <main className="flex h-full flex-grow flex-col items-center justify-center bg-white ">
         {/*404 language*/}
         <h1 className="text-6xl font-bold">404</h1>
         <h2 className="text-2xl font-bold">Page Not Found</h2>
