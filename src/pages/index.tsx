@@ -18,17 +18,20 @@ type Event = {
 const Home: NextPage<{ events: Event[] }> = ({ events }) => {
   const brands = [
     {
+      key: 1,
       name: "Wobbleland",
       imgURL: "/wobbleland.png",
       description: "Our premiere bass music festival",
     },
     {
+      key: 2,
       name: "Toxic Summer",
       imgURL: "/toxic-summer.png",
       description:
         "A summer festival featuring a variety of bass music artists",
     },
     {
+      key: 3,
       name: "Vital Presents",
       imgURL: "/vital-presents.png",
       description: "Regular club nights thrown by vital events",
@@ -49,8 +52,11 @@ const Home: NextPage<{ events: Event[] }> = ({ events }) => {
             Our Brands
           </h1>
           <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {brands.map(({ name, imgURL, description }) => (
-              <div className="flex flex-col items-start justify-center">
+            {brands.map(({ key, name, imgURL, description }) => (
+              <div
+                className="flex flex-col items-start justify-center"
+                key={key}
+              >
                 <img src={imgURL} alt={name} className="h-full w-full" />
                 <h2 className=" text-2xl font-bold text-gray-700 ">{name}</h2>
                 <p className="text-left text-gray-500">{description}</p>
