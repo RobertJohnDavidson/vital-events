@@ -77,7 +77,7 @@ const client = createClient({
 });
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = await client.fetch(`*[_type == "event"]{
+  const events: Event[] = await client.fetch(`*[_type == "event"]{
     _id,
     title,
     promoters,
