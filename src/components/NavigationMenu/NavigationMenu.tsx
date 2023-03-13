@@ -1,4 +1,5 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 
 type NavigationMenuProps = {};
 
@@ -19,6 +20,7 @@ const NavigationMenu = (props: NavigationMenuProps) => {
           </div>
         </div>
         {/* menu items */}
+        {}
         <div className="flex justify-evenly">
           <div className="flex items-center">
             <a href="/events" className="text-lg font-bold text-gray-800">
