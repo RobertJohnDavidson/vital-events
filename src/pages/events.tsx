@@ -14,6 +14,9 @@ type Event = {
 };
 
 const Events: NextPage<{ events: Event[] }> = ({ events }) => {
+  const sortedEvents = events.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
   return (
     <>
       <Head>
@@ -26,8 +29,8 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
         <h1 className="p-8 text-center text-4xl font-bold text-gray-800">
           Upcoming Events
         </h1>
-        <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1 md:grid-cols-2">
-          {events.map(
+        <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1">
+          {sortedEvents.map(
             ({ _id, title, promoters, venue, date, link, imgURL }) => (
               <div className="flex justify-center">
                 <Card

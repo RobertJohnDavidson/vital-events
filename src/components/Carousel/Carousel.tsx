@@ -57,9 +57,12 @@ const Carousel = ({ events }: { events: Event[] }) => {
     mobileFirst: true,
     swipeToSlide: true,
   };
+  const sortedEvents = events.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
   return (
     <Slider {...settings}>
-      {events.map((event) => (
+      {sortedEvents.map((event) => (
         <div
           className="relative mx-auto aspect-video h-auto w-[20rem] max-w-full overflow-hidden "
           key={event._id}

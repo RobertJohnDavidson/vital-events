@@ -11,9 +11,9 @@ type Card = {
 const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
   return (
     //a card component that will be used to display events
-    <div className="z-0 flex h-full max-w-sm flex-col justify-between rounded bg-slate-50 p-4 shadow-lg">
+    <div className="z-0 flex h-full flex-col  justify-between rounded bg-slate-50 p-4 shadow-lg lg:w-[80%]  lg:flex-row">
       {/* image for card */}
-      <div className="relative mx-auto aspect-square h-auto w-[20rem] max-w-full overflow-hidden ">
+      <div className="relative mx-auto aspect-square h-[20rem] w-[20rem]   ">
         <img
           className="h-full w-full object-cover"
           src={imgURL}
@@ -25,11 +25,15 @@ const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
         ></div>
       </div>
       {/* card content */}
-      <div className="flex flex-grow flex-col items-start justify-between gap-2 p-4">
-        <p className="text-sm font-light text-gray-500">{promoters}</p>
-        <h1 className="text-left text-2xl font-bold text-gray-800">{title}</h1>
-        <p className="text-sm font-light text-gray-500">{venue}</p>
-        <p className="text-sm font-light text-gray-500">{date}</p>
+      <div className="flex flex-grow flex-col items-start justify-between gap-2 px-0 py-4 lg:px-4 lg:py-0">
+        <p className="text-sm font-light text-gray-500 lg:text-lg">
+          {promoters}
+        </p>
+        <h1 className="text-left text-2xl font-bold text-gray-800 lg:text-4xl">
+          {title}
+        </h1>
+        <p className="text-sm font-light text-gray-500 lg:text-lg">{venue}</p>
+        <p className="text-sm font-light text-gray-500 lg:text-lg">{date}</p>
 
         {/* button */}
         <a
