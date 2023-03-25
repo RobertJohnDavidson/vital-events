@@ -4,6 +4,8 @@
 
 :root {
   @apply bg-gray-300;
+  --oswald-font: ${oswald.style.fontFamily};
+  --source-sans-3-font: ${sourceSans.style.fontFamily};
 }
 
 .slick-prev:before,

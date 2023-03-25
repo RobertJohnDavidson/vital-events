@@ -27,8 +27,7 @@ const Home: NextPage<{ events: Event[] }> = ({ events }) => {
       key: 2,
       name: "Toxic Summer",
       imgURL: "/toxic-summer.png",
-      description:
-        "A summer festival featuring a variety of bass music artists",
+      description: "A summer bass music festival featuring",
     },
     {
       key: 3,
@@ -48,16 +47,20 @@ const Home: NextPage<{ events: Event[] }> = ({ events }) => {
         <Carousel events={events} />
         {/*Our Brands*/}
         <div>
-          <h1 className="p-8 text-center text-4xl font-bold text-gray-800">
+          <h1 className="pt-10 pb-4 text-center text-5xl font-[700] text-gray-800">
             Our Brands
           </h1>
-          <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid items-center justify-center gap-8 px-20 py-4 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {brands.map(({ key, name, imgURL, description }) => (
               <div
-                className="flex flex-col items-start justify-center"
+                className="flex h-full flex-col items-start justify-between"
                 key={key}
               >
-                <img src={imgURL} alt={name} className="h-full w-full" />
+                <img
+                  src={imgURL}
+                  alt={name}
+                  className="aspect-square h-auto w-full"
+                />
                 <h2 className=" text-2xl font-bold text-gray-700 ">{name}</h2>
                 <p className="text-left text-gray-500">{description}</p>
               </div>
