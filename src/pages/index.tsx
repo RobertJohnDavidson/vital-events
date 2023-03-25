@@ -14,28 +14,18 @@ type Event = {
   imgURL: string;
   carouselImgURL: string;
 };
+type Brand = {
+  _id: string;
+  name: string;
+  imgURL: string;
+  description: string;
+  link: string;
+};
 
-const Home: NextPage<{ events: Event[] }> = ({ events }) => {
-  const brands = [
-    {
-      key: 1,
-      name: "Wobbleland",
-      imgURL: "/wobbleland.png",
-      description: "Our premiere bass music festival",
-    },
-    {
-      key: 2,
-      name: "Toxic Summer",
-      imgURL: "/toxic-summer.png",
-      description: "A summer bass music festival featuring",
-    },
-    {
-      key: 3,
-      name: "Vital Presents",
-      imgURL: "/vital-presents.png",
-      description: "Regular club nights thrown by vital events",
-    },
-  ];
+const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
+  events,
+  brands,
+}) => {
   return (
     <>
       <Head>
@@ -51,18 +41,22 @@ const Home: NextPage<{ events: Event[] }> = ({ events }) => {
             Our Brands
           </h1>
           <div className="grid items-center justify-center gap-8 px-20 py-4 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {brands.map(({ key, name, imgURL, description }) => (
+            {brands.map(({ _id, name, imgURL, description }) => (
               <div
-                className="flex h-full flex-col items-start justify-between"
-                key={key}
+                className="flex h-full flex-col items-start justify-start"
+                key={_id}
               >
                 <img
                   src={imgURL}
                   alt={name}
                   className="aspect-square h-auto w-full"
                 />
-                <h2 className=" text-2xl font-bold text-gray-700 ">{name}</h2>
-                <p className="text-left text-gray-500">{description}</p>
+                <div>
+                  <h2 className=" text-left text-2xl font-bold text-gray-700 ">
+                    {name}
+                  </h2>
+                  <p className="text-left text-gray-500">{description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -90,9 +84,18 @@ export const getStaticProps: GetStaticProps = async () => {
     'imgURL': image.asset->url,
     'carouselImgURL': carouselImage.asset->url
   }`);
+  const brands: Brand[] = await client.fetch(`*[_type == "brand"]{
+    _id,
+    name,
+    'imgURL': image.asset->url,
+    description,
+    link
+  }`);
+
   return {
     props: {
       events,
+      brands,
     },
   };
 };
