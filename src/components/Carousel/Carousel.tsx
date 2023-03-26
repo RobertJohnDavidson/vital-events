@@ -1,17 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-type Event = {
-  _id: string;
-  title: string;
-  promoters: string;
-  venue: string;
-  date: string;
-  link: string;
-  imgURL: string;
-  carouselImgURL: string;
-};
+import type { Event } from "../../types/types";
 
 function SampleNextArrow(props: any) {
   const { className, style, onClick } = props;
