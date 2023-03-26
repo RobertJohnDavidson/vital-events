@@ -1,31 +1,28 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { createClient } from "next-sanity";
-import { GetStaticProps } from "next";
+import { createClient } from "@sanity/client";
+import type { GetStaticProps } from "next";
+import { useNextSanityImage } from "next-sanity-image";
 import Carousel from "../components/Carousel/Carousel";
+import Image from "next/image";
+import type { Event, Brand } from "../types/types";
+import type {
+  SanityImageObject,
+  SanityAsset,
+} from "@sanity/image-url/lib/types/types";
 
-type Event = {
-  _id: string;
-  title: string;
-  promoters: string;
-  venue: string;
-  date: string;
-  link: string;
-  imgURL: string;
-  carouselImgURL: string;
-};
-type Brand = {
-  _id: string;
-  name: string;
-  imgURL: string;
-  description: string;
-  link: string;
-};
+const client = createClient({
+  projectId: "z85r7ph3",
+  dataset: "production",
+  useCdn: true,
+  apiVersion: "2023-03-02",
+});
 
 const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   events,
   brands,
 }) => {
+  console.log(events);
   return (
     <>
       <Head>
@@ -46,11 +43,7 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
                 className="flex h-full flex-col items-start justify-start"
                 key={_id}
               >
-                <img
-                  src={imgURL}
-                  alt={name}
-                  className="aspect-square h-auto w-full"
-                />
+                <ImageBuilder imgURL={imgURL} name={name} />
                 <div>
                   <h2 className=" text-left text-2xl font-bold text-gray-700 ">
                     {name}
@@ -66,12 +59,26 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   );
 };
 
-const client = createClient({
-  projectId: "z85r7ph3",
-  dataset: "production",
-  useCdn: false,
-  apiVersion: "2023-03-02",
-});
+const ImageBuilder = ({
+  imgURL,
+  name,
+}: {
+  imgURL: SanityImageObject;
+  name: string;
+}) => {
+  const imageProps = useNextSanityImage(client, imgURL);
+  console.log(imgURL);
+  return (
+    <>
+      <Image
+        {...imageProps}
+        alt={name}
+        style={{ width: "100%", height: "auto" }} // layout="responsive" prior to Next 13.0.0
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const events: Event[] = await client.fetch(`*[_type == "event"]{
@@ -81,13 +88,18 @@ export const getStaticProps: GetStaticProps = async () => {
     venue,
     date,
     link,
-    'imgURL': image.asset->url,
-    'carouselImgURL': carouselImage.asset->url
+    imgURL,
+    carouselImgURL
   }`);
   const brands: Brand[] = await client.fetch(`*[_type == "brand"]{
     _id,
     name,
-    'imgURL': image.asset->url,
+    imgURL{
+					asset->{
+						...,
+						metadata
+					}
+				},
     description,
     link
   }`);
