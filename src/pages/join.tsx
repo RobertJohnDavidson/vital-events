@@ -11,9 +11,15 @@ const Join: NextPage = () => {
       </Head>
       <div></div>
       <main className="flex flex-grow flex-col items-center bg-white">
-        <h1 className="p-8 text-center text-4xl font-bold text-gray-800">
+        <h1 className="p-4 text-center text-4xl font-bold text-gray-800">
           Join the Vital Street Team
         </h1>
+        <p className="max-w-4xl pb-8 text-center font-bold">
+          Join one of the best street teams in the country! Connect with other
+          fans, earn free tickets, chances to meet artists, and so much more.
+          Fill out the form below and someone from Vital will contact you with
+          more information!
+        </p>
         <form className="w-full max-w-lg">
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
@@ -49,7 +55,7 @@ const Join: NextPage = () => {
             </div>
           </div>
           <div className="-mx-3 mb-2 flex flex-wrap">
-            <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
+            <div className="mb-6 w-full px-3 md:w-1/2">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-city"
@@ -63,7 +69,7 @@ const Join: NextPage = () => {
                 placeholder="San Francisco"
               />
             </div>
-            <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
+            <div className="mb-6 w-full px-3  md:w-1/2">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-city"
@@ -77,7 +83,7 @@ const Join: NextPage = () => {
                 placeholder="California"
               />
             </div>
-            <div className="mb-6 w-full px-3 md:mb-0 ">
+            <div className="mb-6 w-full p-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-city"
@@ -89,6 +95,20 @@ const Join: NextPage = () => {
                 id="grid-city"
                 type="text"
                 placeholder="you@gmail.com"
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                className="mb-2 block font-bold text-gray-700"
+                htmlFor="phone"
+              >
+                Phone Number
+              </label>
+              <input
+                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                id="phone"
+                type="tel"
+                placeholder="(123) 456-7890"
               />
             </div>
           </div>
