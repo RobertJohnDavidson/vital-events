@@ -1,4 +1,4 @@
-import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import { SanityImageAssetDocument } from "@sanity/client";
 
 export type Event = {
   _id: string;
@@ -7,13 +7,21 @@ export type Event = {
   venue: string;
   date: string;
   link: string;
-  imgURL: string;
-  carouselImgURL: string;
+  imgURL: SanityImageAssetDocument;
+  carouselImgURL: SanityImageAssetDocument;
 };
 export type Brand = {
   _id: string;
   name: string;
-  imgURL: SanityImageObject;
+  imgURL: SanityImageAssetDocument;
   description: string;
   link: string;
+};
+export type Card = {
+  title: string;
+  promoters: string;
+  venue: string;
+  date: string;
+  link: string;
+  imgURL: SanityImageAssetDocument;
 };

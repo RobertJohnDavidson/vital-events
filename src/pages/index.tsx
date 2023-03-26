@@ -1,28 +1,15 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { createClient } from "@sanity/client";
+import createClient from "@sanity/client";
 import type { GetStaticProps } from "next";
-import { useNextSanityImage } from "next-sanity-image";
 import Carousel from "../components/Carousel/Carousel";
-import Image from "next/image";
 import type { Event, Brand } from "../types/types";
-import type {
-  SanityImageObject,
-  SanityAsset,
-} from "@sanity/image-url/lib/types/types";
-
-const client = createClient({
-  projectId: "z85r7ph3",
-  dataset: "production",
-  useCdn: true,
-  apiVersion: "2023-03-02",
-});
-
+import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
+import { getClient } from "@lib/sanity";
 const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   events,
   brands,
 }) => {
-  console.log(events);
   return (
     <>
       <Head>
@@ -43,7 +30,11 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
                 className="flex h-full flex-col items-start justify-start"
                 key={_id}
               >
-                <ImageBuilder imgURL={imgURL} name={name} />
+                <ImageBuilder
+                  imgURL={imgURL}
+                  name={name}
+                  style="aspect-square h-auto w-full"
+                />
                 <div>
                   <h2 className=" text-left text-2xl font-bold text-gray-700 ">
                     {name}
@@ -59,47 +50,24 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   );
 };
 
-const ImageBuilder = ({
-  imgURL,
-  name,
-}: {
-  imgURL: SanityImageObject;
-  name: string;
-}) => {
-  const imageProps = useNextSanityImage(client, imgURL);
-  console.log(imgURL);
-  return (
-    <>
-      <Image
-        {...imageProps}
-        alt={name}
-        style={{ width: "100%", height: "auto" }} // layout="responsive" prior to Next 13.0.0
-        sizes="(max-width: 800px) 100vw, 800px"
-      />
-    </>
-  );
-};
-
 export const getStaticProps: GetStaticProps = async () => {
-  const events: Event[] = await client.fetch(`*[_type == "event"]{
+  const events: Event[] = await getClient().fetch(`*[_type == "event"]{
     _id,
     title,
     promoters,
     venue,
     date,
     link,
-    imgURL,
-    carouselImgURL
+    'imgURL': image.asset->{...,
+      metadata},
+    'carouselImgURL': carouselImage.asset->{...,
+      metadata},
   }`);
-  const brands: Brand[] = await client.fetch(`*[_type == "brand"]{
+  const brands: Brand[] = await getClient().fetch(`*[_type == "brand"]{
     _id,
     name,
-    imgURL{
-					asset->{
-						...,
-						metadata
-					}
-				},
+    'imgURL':image.asset->{...,
+      metadata},
     description,
     link
   }`);

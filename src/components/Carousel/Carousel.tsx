@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import type { Event } from "../../types/types";
-
+import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
 function SampleNextArrow(props: any) {
   const { className, style, onClick } = props;
   return (
@@ -57,10 +57,10 @@ const Carousel = ({ events }: { events: Event[] }) => {
           className="relative mx-auto aspect-video h-auto w-[20rem] max-w-full overflow-hidden "
           key={event._id}
         >
-          <img
-            className="h-full w-full object-cover"
-            src={event.carouselImgURL}
-            alt="Event Image"
+          <ImageBuilder
+            imgURL={event.carouselImgURL}
+            name={event.title}
+            style="h-full w-full object-cover"
           />
           <div
             className="absolute bottom-0 flex h-1/2  w-full  flex-row

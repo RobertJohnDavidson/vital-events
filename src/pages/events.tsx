@@ -1,18 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { createClient } from "next-sanity";
 import { GetStaticProps } from "next";
 import Card from "../components/Card/Card";
-type Event = {
-  _id: string;
-  title: string;
-  promoters: string;
-  venue: string;
-  date: string;
-  link: string;
-  imgURL: string;
-};
-
+import type { Event } from "../types/types";
+import { getClient } from "@lib/sanity";
 const Events: NextPage<{ events: Event[] }> = ({ events }) => {
   const sortedEvents = events.sort((a, b) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime();
@@ -56,22 +47,17 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
   );
 };
 export default Events;
-const client = createClient({
-  projectId: "z85r7ph3",
-  dataset: "production",
-  useCdn: false,
-  apiVersion: "2023-03-02",
-});
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = await client.fetch(`*[_type == "event"]{
+  const events = await getClient().fetch(`*[_type == "event"]{
       _id,
       title,
       promoters,
       venue,
       date,
       link,
-      'imgURL': image.asset->url
+      'imgURL': image.asset->{...,
+        metadata},
     }`);
   return {
     props: {
