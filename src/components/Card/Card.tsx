@@ -1,23 +1,16 @@
 import styles from "./Card.module.css";
-type Card = {
-  title: string;
-  promoters: string;
-  venue: string;
-  date: string;
-  link: string;
-  imgURL: string;
-};
-
+import type { Card } from "../../types/types";
+import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
 const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
   return (
     //a card component that will be used to display events
     <div className="z-0 flex h-full flex-col  justify-between rounded bg-slate-50 p-4 shadow-lg lg:w-[80%]  lg:flex-row">
       {/* image for card */}
       <div className="relative mx-auto aspect-square h-[20rem] w-[20rem]   ">
-        <img
-          className="h-full w-full object-cover"
-          src={imgURL}
-          alt="Event Image"
+        <ImageBuilder
+          imgURL={imgURL}
+          name={title}
+          style="h-full w-full object-cover"
         />
         <div
           className="absolute bottom-0 flex h-1/2  w-full  flex-row

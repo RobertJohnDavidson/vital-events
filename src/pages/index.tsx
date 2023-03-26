@@ -1,27 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { createClient } from "next-sanity";
-import { GetStaticProps } from "next";
+import createClient from "@sanity/client";
+import type { GetStaticProps } from "next";
 import Carousel from "../components/Carousel/Carousel";
-
-type Event = {
-  _id: string;
-  title: string;
-  promoters: string;
-  venue: string;
-  date: string;
-  link: string;
-  imgURL: string;
-  carouselImgURL: string;
-};
-type Brand = {
-  _id: string;
-  name: string;
-  imgURL: string;
-  description: string;
-  link: string;
-};
-
+import type { Event, Brand } from "../types/types";
+import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
+import { getClient } from "@lib/sanity";
 const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   events,
   brands,
@@ -46,10 +30,10 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
                 className="flex h-full flex-col items-start justify-start"
                 key={_id}
               >
-                <img
-                  src={imgURL}
-                  alt={name}
-                  className="aspect-square h-auto w-full"
+                <ImageBuilder
+                  imgURL={imgURL}
+                  name={name}
+                  style="aspect-square h-auto w-full"
                 />
                 <div>
                   <h2 className=" text-left text-2xl font-bold text-gray-700 ">
@@ -66,28 +50,24 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   );
 };
 
-const client = createClient({
-  projectId: "z85r7ph3",
-  dataset: "production",
-  useCdn: false,
-  apiVersion: "2023-03-02",
-});
-
 export const getStaticProps: GetStaticProps = async () => {
-  const events: Event[] = await client.fetch(`*[_type == "event"]{
+  const events: Event[] = await getClient().fetch(`*[_type == "event"]{
     _id,
     title,
     promoters,
     venue,
     date,
     link,
-    'imgURL': image.asset->url,
-    'carouselImgURL': carouselImage.asset->url
+    'imgURL': image.asset->{...,
+      metadata},
+    'carouselImgURL': carouselImage.asset->{...,
+      metadata},
   }`);
-  const brands: Brand[] = await client.fetch(`*[_type == "brand"]{
+  const brands: Brand[] = await getClient().fetch(`*[_type == "brand"]{
     _id,
     name,
-    'imgURL': image.asset->url,
+    'imgURL':image.asset->{...,
+      metadata},
     description,
     link
   }`);
