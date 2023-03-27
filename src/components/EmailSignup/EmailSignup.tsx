@@ -1,14 +1,18 @@
+import Image from "next/image";
 const EmailSignup = () => {
   return (
     <section className="w-full bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl py-8 px-4 lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md sm:text-center">
-          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Sign up for our newsletter
-          </h2>
+          <Image
+            className="color-white mx-auto h-auto w-40 object-cover pb-8  "
+            width={100}
+            height={100}
+            src="./vital-logo-white.svg"
+            alt="Event Image"
+          />
           <p className="mx-auto mb-8 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl md:mb-12">
-            Stay up to date with the roadmap progress, announcements and
-            exclusive discounts feel free to sign up with your email.
+            Sign up with your email address to receive event news and updates.
           </p>
           <form action="#">
             <div className="mx-auto mb-3 max-w-screen-sm items-center space-y-4 sm:flex sm:space-y-0">
