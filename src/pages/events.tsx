@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import Card from "../components/Card/Card";
 import type { Event } from "../types/types";
 import { getClient } from "@lib/sanity";
@@ -23,9 +23,8 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
         <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1">
           {sortedEvents.map(
             ({ _id, title, promoters, venue, date, link, imgURL }) => (
-              <div className="flex justify-center">
+              <div key={_id} className="flex justify-center">
                 <Card
-                  key={_id}
                   title={title}
                   promoters={promoters}
                   venue={venue}
@@ -49,7 +48,7 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
 export default Events;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = await getClient().fetch(`*[_type == "event"]{
+  const events: Event[] = await getClient().fetch(`*[_type == "event"]{
       _id,
       title,
       promoters,

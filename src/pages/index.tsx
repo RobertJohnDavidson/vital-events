@@ -1,6 +1,5 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import createClient from "@sanity/client";
 import type { GetStaticProps } from "next";
 import Carousel from "../components/Carousel/Carousel";
 import type { Event, Brand } from "../types/types";

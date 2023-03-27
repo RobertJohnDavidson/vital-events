@@ -97,18 +97,18 @@ const Join: NextPage = () => {
                 placeholder="you@gmail.com"
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-6 w-full p-3 md:mb-0 ">
               <label
-                className="mb-2 block font-bold text-gray-700"
-                htmlFor="phone"
+                className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
+                htmlFor="grid-city"
               >
                 Phone Number
               </label>
               <input
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-                id="phone"
-                type="tel"
-                placeholder="(123) 456-7890"
+                className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+                id="grid-city"
+                type="text"
+                placeholder="(xxx) xxx-xxxx"
               />
             </div>
           </div>

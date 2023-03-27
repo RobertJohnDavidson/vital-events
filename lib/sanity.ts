@@ -1,4 +1,4 @@
-import createClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import { config } from "./config";
 
 if (!config.projectId) {

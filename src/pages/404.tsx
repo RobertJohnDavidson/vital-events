@@ -1,9 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { createClient } from "next-sanity";
-import { GetStaticProps } from "next";
-import Card from "../components/Card/Card";
-const ErrorPage: NextPage<{ events: Event[] }> = ({ events }) => {
+const ErrorPage: NextPage = () => {
   return (
     <>
       <Head>
