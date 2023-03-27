@@ -11,7 +11,7 @@ const EmailSignup = () => {
             src="./vital-logo-white.svg"
             alt="Event Image"
           />
-          <p className="mx-auto mb-8 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl md:mb-12">
+          <p className="mx-auto mb-4 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl md:mb-12">
             Sign up with your email address to receive event news and updates.
           </p>
           <form action="#">

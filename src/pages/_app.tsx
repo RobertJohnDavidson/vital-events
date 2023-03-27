@@ -1,6 +1,6 @@
 import { type AppType } from "next/app";
 
-import { Source_Sans_3, Oswald } from "@next/font/google";
+// import { Source_Sans_3, Oswald } from "@next/font/google";
 import Layout from "~/components/Layout/Layout";
 import "~/styles/globals.css";
 
