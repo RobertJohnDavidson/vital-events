@@ -1,7 +1,63 @@
 import Head from "next/head";
 import { type NextPage } from "next";
+import { FormEvent, useState } from "react";
+import validator from "validator";
 
 const Join: NextPage = () => {
+  const [email, setEmail] = useState<boolean>(true);
+  const [firstName, setFirstName] = useState<boolean>(true);
+  const [lastName, setLastName] = useState<boolean>(true);
+  const [phone, setPhone] = useState<boolean>(true);
+  const [city, setCity] = useState<boolean>(true);
+  const [state, setState] = useState<boolean>(true);
+  const [zip, setZip] = useState<boolean>(true);
+  const [age, setAge] = useState<boolean>(true);
+  const [twitter, setTwitter] = useState<boolean>(true);
+  const [instagram, setInstagram] = useState<boolean>(true);
+  const [facebook, setFacebook] = useState<boolean>(true);
+  const [tiktok, setTiktok] = useState<boolean>(true);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Read the form data
+
+    const form = e.target as HTMLFormElement;
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+    };
+
+    // // Validate the form data
+    // if (!validator.isEmail(data.email)) {
+    //   setEmail(false);
+    // }
+    // if (!validator.isAlpha(data.firstName)) {
+    //   setFirstName(false);
+    // }
+    // if (!validator.isAlpha(data.lastName)) {
+    //   setLastName(false);
+    // }
+    // if (!validator.isMobilePhone(data.phone)) {
+    //   setPhone(false);
+    // }
+    // if (!validator.isAlpha(data.city)) {
+    //   setCity(false);
+    // }
+    // if (!validator.isAlpha(data.state)) {
+    //   setState(false);
+    // }
+    // if (!validator.isPostalCode(data.zip, "US")) {
+    //   setZip(false);
+    // }
+    // if (!validator.isInt(data.age)) {
+    //   setAge(false);
+    // }
+
+    for (const [key, value] of Object.entries(data)) {
+      console.log(`${key}: ${value}`);
+    }
+
+    console.log("submitted");
+  };
   return (
     <>
       <Head>
@@ -20,11 +76,13 @@ const Join: NextPage = () => {
           Fill out the form below and someone from Vital will contact you with
           more information!
         </p>
-        <form className="w-full max-w-lg">
+        <form method="POST" onSubmit={handleSubmit} className="w-full max-w-lg">
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
               <label
-                className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
+                className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 ${
+                  !firstName ? "border-red-400" : ""
+                }`}
                 htmlFor="grid-first-name"
               >
                 First Name
@@ -32,6 +90,7 @@ const Join: NextPage = () => {
               <input
                 className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
                 id="grid-first-name"
+                name="firstName"
                 type="text"
                 placeholder="Jane"
               />
@@ -46,6 +105,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-last-name"
+                name="lastName"
                 type="text"
                 placeholder="Doe"
               />
@@ -62,6 +122,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-city"
+                name="city"
                 type="text"
                 placeholder="San Francisco"
               />
@@ -76,6 +137,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-state"
+                name="state"
                 type="text"
                 placeholder="California"
               />
@@ -90,6 +152,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-email"
+                name="email"
                 type="text"
                 placeholder="you@gmail.com"
               />
@@ -104,6 +167,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-phone"
+                name="phone"
                 type="text"
                 placeholder="(xxx) xxx-xxxx"
               />
@@ -118,6 +182,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-age"
+                name="age"
                 type="text"
               />
             </div>
@@ -131,6 +196,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-college"
+                name="college"
                 type="text"
               />
             </div>
@@ -144,6 +210,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-which-college"
+                name="whichCollege"
                 type="text"
               />
             </div>
@@ -158,6 +225,7 @@ const Join: NextPage = () => {
                 <div className="relative">
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+                    name="eventBefore"
                     id="grid-event-before"
                   >
                     <option>Yes</option>
@@ -185,6 +253,7 @@ const Join: NextPage = () => {
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                     id="grid-per-month"
+                    name="perMonth"
                   >
                     <option>0</option>
                     <option>1-2</option>
@@ -213,6 +282,7 @@ const Join: NextPage = () => {
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                     id="grid-car"
+                    name="car"
                   >
                     <option>Yes</option>
                     <option>No</option>
@@ -239,6 +309,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-fb"
+                name="fb"
                 type="text"
               />
             </div>
@@ -252,6 +323,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-ig"
+                name="ig"
                 type="text"
               />
             </div>
@@ -265,6 +337,7 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-tw"
+                name="tw"
                 type="text"
               />
             </div>
@@ -278,12 +351,16 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-tiktok"
+                name="tiktok"
                 type="text"
               />
             </div>
           </div>
           <div className="mb-2 flex justify-center">
-            <button className=" rounded-sm bg-purple-800 p-2 text-lg font-bold text-gray-100 shadow-md hover:bg-purple-600">
+            <button
+              type="submit"
+              className=" rounded-sm bg-purple-800 p-2 text-lg font-bold text-gray-100 shadow-md hover:bg-purple-600"
+            >
               Submit
             </button>
           </div>
