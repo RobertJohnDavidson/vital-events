@@ -14,6 +14,11 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_EMAILJS_USER_ID: z.string().min(1),
+  NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: z.string().min(1),
+  NEXT_PUBLIC_EMAILJS_SERVICE_ID: z.string().min(1),
+  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1),
+  NEXT_PUBLIC_SANITY_DATASET: z.string().min(1),
 });
 
 /**
@@ -24,6 +29,11 @@ const client = z.object({
  */
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+  NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+  NEXT_PUBLIC_EMAILJS_USER_ID: process.env.NEXT_PUBLIC_EMAILJS_USER_ID,
+  NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

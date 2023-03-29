@@ -1,62 +1,59 @@
 import Head from "next/head";
 import { type NextPage } from "next";
-import { FormEvent, useState } from "react";
-import validator from "validator";
+import { useRef } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
+type Inputs = {
+  firstName: string;
+  lastName: string;
+  city: string;
+  state: string;
+  email: string;
+  phone: string;
+  age: number;
+  attendingCollege: string;
+  whichCollege?: string;
+  eventBefore: string;
+  eventsPerMonth: string;
+  car: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  tiktok: string;
+};
 const Join: NextPage = () => {
-  const [email, setEmail] = useState<boolean>(true);
-  const [firstName, setFirstName] = useState<boolean>(true);
-  const [lastName, setLastName] = useState<boolean>(true);
-  const [phone, setPhone] = useState<boolean>(true);
-  const [city, setCity] = useState<boolean>(true);
-  const [state, setState] = useState<boolean>(true);
-  const [zip, setZip] = useState<boolean>(true);
-  const [age, setAge] = useState<boolean>(true);
-  const [twitter, setTwitter] = useState<boolean>(true);
-  const [instagram, setInstagram] = useState<boolean>(true);
-  const [facebook, setFacebook] = useState<boolean>(true);
-  const [tiktok, setTiktok] = useState<boolean>(true);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Read the form data
-
-    const form = e.target as HTMLFormElement;
-    const target = e.target as typeof e.target & {
-      email: { value: string };
-    };
-
-    // // Validate the form data
-    // if (!validator.isEmail(data.email)) {
-    //   setEmail(false);
-    // }
-    // if (!validator.isAlpha(data.firstName)) {
-    //   setFirstName(false);
-    // }
-    // if (!validator.isAlpha(data.lastName)) {
-    //   setLastName(false);
-    // }
-    // if (!validator.isMobilePhone(data.phone)) {
-    //   setPhone(false);
-    // }
-    // if (!validator.isAlpha(data.city)) {
-    //   setCity(false);
-    // }
-    // if (!validator.isAlpha(data.state)) {
-    //   setState(false);
-    // }
-    // if (!validator.isPostalCode(data.zip, "US")) {
-    //   setZip(false);
-    // }
-    // if (!validator.isInt(data.age)) {
-    //   setAge(false);
-    // }
-
-    for (const [key, value] of Object.entries(data)) {
-      console.log(`${key}: ${value}`);
-    }
-
-    console.log("submitted");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const form = useRef<HTMLFormElement>(null);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        form.current as HTMLFormElement,
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID as string
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+  const attendingCollege = watch("attendingCollege");
+  const requiredField = () => {
+    return (
+      <span className="text-xs italic text-red-500">
+        Please fill out this field.
+      </span>
+    );
   };
   return (
     <>
@@ -66,7 +63,7 @@ const Join: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex flex-grow flex-col items-center bg-white">
+      <main className="flex flex-grow flex-col items-center bg-white p-4">
         <h1 className="p-4 text-center text-4xl font-bold text-gray-800">
           Join the Vital Street Team
         </h1>
@@ -76,26 +73,31 @@ const Join: NextPage = () => {
           Fill out the form below and someone from Vital will contact you with
           more information!
         </p>
-        <form method="POST" onSubmit={handleSubmit} className="w-full max-w-lg">
-          <div className="-mx-3 mb-6 flex flex-wrap">
-            <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
+        <form
+          ref={form}
+          method="POST"
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-lg"
+        >
+          <div className="-mx-3 flex flex-wrap">
+            <div className="my-3 w-full px-3 md:mb-0 md:w-1/2">
               <label
-                className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 ${
-                  !firstName ? "border-red-400" : ""
-                }`}
+                className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700`}
                 htmlFor="grid-first-name"
               >
                 First Name
               </label>
               <input
-                className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+                className=" block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
                 id="grid-first-name"
-                name="firstName"
                 type="text"
                 placeholder="Jane"
+                {...register("firstName", { required: true })}
               />
+              {/* errors will return when field validation fails  */}
+              {errors.firstName && requiredField()}
             </div>
-            <div className="w-full px-3 md:w-1/2">
+            <div className="my-3 w-full  px-3 md:w-1/2">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-last-name"
@@ -105,14 +107,15 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-last-name"
-                name="lastName"
+                {...register("lastName", { required: true })}
                 type="text"
                 placeholder="Doe"
               />
+              {errors.lastName && requiredField()}
             </div>
           </div>
           <div className="-mx-3 mb-2 flex flex-wrap">
-            <div className="mb-6 w-full px-3 md:w-1/2">
+            <div className="my-3 w-full px-3 md:w-1/2">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-city"
@@ -122,12 +125,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-city"
-                name="city"
+                {...register("city", { required: true })}
                 type="text"
                 placeholder="San Francisco"
               />
+              {errors.city && requiredField()}
             </div>
-            <div className="mb-6 w-full px-3  md:w-1/2">
+            <div className="my-3 w-full px-3  md:w-1/2">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-state"
@@ -137,12 +141,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-state"
-                name="state"
+                {...register("state", { required: true })}
                 type="text"
                 placeholder="California"
               />
+              {errors.state && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-email"
@@ -152,12 +157,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-email"
-                name="email"
+                {...register("email", { required: true })}
                 type="text"
                 placeholder="you@gmail.com"
               />
+              {errors.email && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-phone"
@@ -167,12 +173,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-phone"
-                name="phone"
+                {...register("phone", { required: true })}
                 type="text"
                 placeholder="(xxx) xxx-xxxx"
               />
+              {errors.phone && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-age"
@@ -182,40 +189,60 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-age"
-                name="age"
-                type="text"
+                {...register("age", { required: true })}
+                type="number"
               />
+              {errors.age && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+
+            <div className=" my-3 flex w-full flex-col justify-between px-3">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
-                htmlFor="grid-college"
+                htmlFor="grid-event-before"
               >
-                Are you attending college?
+                Are You Attending College?
               </label>
-              <input
-                className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
-                id="grid-college"
-                name="college"
-                type="text"
-              />
+              <div className="relative">
+                <select
+                  className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+                  {...register("attendingCollege", { required: true })}
+                  id="grid-event-before"
+                >
+                  <option>Yes</option>
+                  <option selected>No</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="h-4 w-4 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+                {errors.eventBefore && requiredField()}
+              </div>
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
-              <label
-                className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
-                htmlFor="grid-which-college"
-              >
-                Which college?
-              </label>
-              <input
-                className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
-                id="grid-which-college"
-                name="whichCollege"
-                type="text"
-              />
-            </div>
-            <div className="mb-6 flex gap-2">
-              <div className=" w-full px-3 md:mb-0 md:w-1/3">
+            {attendingCollege === "Yes" && (
+              <div className="mb-3 w-full px-3 md:mb-0 ">
+                <label
+                  className="my-3 block text-xs font-bold uppercase tracking-wide text-gray-700"
+                  htmlFor="grid-which-college"
+                >
+                  Which college?
+                </label>
+                <input
+                  className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+                  id="grid-which-college"
+                  {...register("whichCollege")}
+                  name="whichCollege"
+                  type="text"
+                />
+                {errors.whichCollege && requiredField()}
+              </div>
+            )}
+            <div className="my-3 flex gap-2">
+              <div className=" flex w-full flex-col justify-between px-3 md:mb-0 md:w-1/3">
                 <label
                   className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                   htmlFor="grid-event-before"
@@ -225,7 +252,7 @@ const Join: NextPage = () => {
                 <div className="relative">
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
-                    name="eventBefore"
+                    {...register("eventBefore", { required: true })}
                     id="grid-event-before"
                   >
                     <option>Yes</option>
@@ -240,9 +267,10 @@ const Join: NextPage = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
+                  {errors.eventBefore && requiredField()}
                 </div>
               </div>
-              <div className=" w-full px-3 md:mb-0 md:w-1/3">
+              <div className="flex w-full flex-col  justify-between px-3 md:mb-0 md:w-1/3">
                 <label
                   className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                   htmlFor="grid-per-month"
@@ -253,7 +281,7 @@ const Join: NextPage = () => {
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                     id="grid-per-month"
-                    name="perMonth"
+                    {...register("eventsPerMonth", { required: true })}
                   >
                     <option>0</option>
                     <option>1-2</option>
@@ -269,9 +297,10 @@ const Join: NextPage = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
+                  {errors.eventsPerMonth && requiredField()}
                 </div>
               </div>
-              <div className=" w-full px-3 md:mb-0 md:w-1/3">
+              <div className="flex w-full flex-col justify-between px-3 md:mb-0 md:w-1/3">
                 <label
                   className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                   htmlFor="grid-car"
@@ -282,7 +311,7 @@ const Join: NextPage = () => {
                   <select
                     className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                     id="grid-car"
-                    name="car"
+                    {...register("car", { required: true })}
                   >
                     <option>Yes</option>
                     <option>No</option>
@@ -296,10 +325,11 @@ const Join: NextPage = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
+                  {errors.car && requiredField()}
                 </div>
               </div>
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-which-fb"
@@ -309,11 +339,12 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-fb"
-                name="fb"
+                {...register("facebook", { required: true })}
                 type="text"
               />
+              {errors.facebook && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-which-ig"
@@ -323,11 +354,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-ig"
-                name="ig"
+                {...register("instagram", { required: true })}
                 type="text"
               />
+              {errors.instagram && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-which-tw"
@@ -337,11 +370,12 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-tw"
-                name="tw"
+                {...register("twitter", { required: true })}
                 type="text"
               />
+              {errors.twitter && requiredField()}
             </div>
-            <div className="mb-6 w-full p-3 md:mb-0 ">
+            <div className="my-3 w-full px-3 md:mb-0 ">
               <label
                 className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
                 htmlFor="grid-which-tiktok"
@@ -351,12 +385,13 @@ const Join: NextPage = () => {
               <input
                 className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 id="grid-tiktok"
-                name="tiktok"
+                {...register("tiktok", { required: true })}
                 type="text"
               />
+              {errors.tiktok && requiredField()}
             </div>
           </div>
-          <div className="mb-2 flex justify-center">
+          <div className="my-6 flex justify-center">
             <button
               type="submit"
               className=" rounded-sm bg-purple-800 p-2 text-lg font-bold text-gray-100 shadow-md hover:bg-purple-600"

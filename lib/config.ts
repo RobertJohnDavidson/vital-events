@@ -6,8 +6,8 @@ export const config = {
    *
    * https://nextjs.org/docs/basic-features/environment-variables
    **/
-  dataset: "production",
-  projectId: "z85r7ph3",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   apiVersion: "2021-08-11", // or today's date for latest
   useCdn: true,
 };
