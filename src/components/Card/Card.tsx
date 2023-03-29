@@ -1,4 +1,4 @@
-import type { Card } from "../../types/types";
+import { Card } from "../../types/types";
 import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
 const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
   return (

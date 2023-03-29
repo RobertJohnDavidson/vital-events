@@ -1,9 +1,10 @@
+import { CustomArrowProps } from "react-slick";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import type { Event } from "../../types/types";
+import { Event } from "../../types/types";
 import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
-function SampleNextArrow(props: any) {
+function SampleNextArrow(props: CustomArrowProps) {
   const { className, style, onClick } = props;
   return (
     <div
@@ -18,7 +19,7 @@ function SampleNextArrow(props: any) {
   );
 }
 
-function SamplePrevArrow(props: any) {
+function SamplePrevArrow(props: CustomArrowProps) {
   const { className, style, onClick } = props;
   return (
     <div
