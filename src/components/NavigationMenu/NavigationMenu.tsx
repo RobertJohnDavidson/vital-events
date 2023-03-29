@@ -10,7 +10,7 @@ const NavigationMenu = () => {
           <div className="flex items-center">
             <Link href="/">
               <Image
-                className="h-[2rem] w-full object-cover"
+                className="h-[2rem] w-auto object-cover"
                 width={100}
                 height={100}
                 src="./vital-logo.svg"
