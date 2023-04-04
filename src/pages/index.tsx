@@ -76,6 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
       events,
       brands,
     },
+    revalidate: 10,
   };
 };
 export default Home;
