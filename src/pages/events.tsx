@@ -19,7 +19,7 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div></div>
-      <main className="flex flex-grow flex-col justify-between bg-white">
+      <main className="flex flex-grow flex-col bg-white">
         <h1 className="p-8 text-center text-4xl font-bold text-gray-800">
           Upcoming Events
         </h1>
