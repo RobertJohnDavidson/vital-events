@@ -1,7 +1,7 @@
 import Image from "next/image";
 const EmailSignup = () => {
   return (
-    <section className="w-full bg-white dark:bg-gray-900">
+    <section className="w-full bg-gray-900">
       <div className="mx-auto max-w-screen-xl py-8 px-4 lg:py-16 lg:px-6">
         <div className="mx-auto flex max-w-screen-md flex-col sm:text-center">
           <Image
