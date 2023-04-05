@@ -3,7 +3,7 @@ const EmailSignup = () => {
   return (
     <section className="w-full bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl py-8 px-4 lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-md sm:text-center">
+        <div className="mx-auto flex max-w-screen-md flex-col sm:text-center">
           <Image
             className="color-white mx-auto h-auto w-40 object-cover pb-8  "
             width={100}
@@ -11,46 +11,12 @@ const EmailSignup = () => {
             src="./vital-logo-white.svg"
             alt="Event Image"
           />
-          <p className="mx-auto mb-4 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl md:mb-12">
+          <p className="mx-auto mb-4 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl ">
             Sign up with your email address to receive event news and updates.
           </p>
-          <form action="#">
-            <div className="mx-auto mb-3 max-w-screen-sm items-center space-y-4 sm:flex sm:space-y-0">
-              <div className="relative w-full">
-                <label
-                  htmlFor="email"
-                  className="mb-2 hidden text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Email address
-                </label>
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <svg
-                    className="h-5 w-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                  </svg>
-                </div>
-                <input
-                  className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:rounded-none sm:rounded-l-lg"
-                  placeholder="Enter your email"
-                  type="email"
-                  id="email"
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="bg-primary-700 border-primary-600 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full cursor-pointer rounded-lg border py-3 px-5 text-center text-sm font-medium text-white focus:ring-4 sm:rounded-none sm:rounded-r-lg"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </form>
+          <button className="mx-auto flex w-20 items-center justify-center rounded-md bg-gray-800 p-2 font-bold text-gray-100 hover:bg-gray-700">
+            <a href="https://arep.co/m/vital-events">Sign Up</a>
+          </button>
         </div>
       </div>
     </section>
