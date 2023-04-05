@@ -9,6 +9,12 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
   events,
   brands,
 }) => {
+  const sortedEvents = events.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+  const filteredEvents = sortedEvents.filter((event) => {
+    return new Date(event.date).getTime() > new Date().getTime();
+  });
   return (
     <>
       <Head>
@@ -17,7 +23,7 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex flex-grow flex-col justify-between bg-white">
-        <Carousel events={events} />
+        <Carousel events={filteredEvents} />
         {/*Our Brands*/}
         <div>
           <h1 className="pt-10 pb-4 text-center text-5xl font-[700] text-gray-800">

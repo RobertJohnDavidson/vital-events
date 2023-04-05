@@ -8,6 +8,9 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
   const sortedEvents = events.sort((a, b) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
+  const filteredEvents = sortedEvents.filter((event) => {
+    return new Date(event.date).getTime() > new Date().getTime();
+  });
   return (
     <>
       <Head>
@@ -21,7 +24,7 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
           Upcoming Events
         </h1>
         <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1">
-          {sortedEvents.map(
+          {filteredEvents.map(
             ({ _id, title, promoters, venue, date, link, imgURL }) => (
               <div key={_id} className="flex justify-center">
                 <Card
