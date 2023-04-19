@@ -26,7 +26,7 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
         <Carousel events={filteredEvents} />
         {/*Our Brands*/}
         <div>
-          <h1 className="pt-10 pb-4 text-center text-5xl font-[700] text-gray-800">
+          <h1 className="pb-4 pt-10 text-center text-5xl font-[700] text-gray-800">
             Our Brands
           </h1>
           <div className="grid items-center justify-center gap-8 px-20 py-4 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

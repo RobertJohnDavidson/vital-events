@@ -6,6 +6,8 @@ export type Event = {
   promoters: string;
   venue: string;
   date: string;
+  endDate: string;
+  publishTime: string;
   link: string;
   imgURL: SanityImageAssetDocument;
   carouselImgURL: SanityImageAssetDocument;
@@ -22,6 +24,7 @@ export type Card = {
   promoters: string;
   venue: string;
   date: string;
+  endDate?: string;
   link: string;
   imgURL: SanityImageAssetDocument;
 };

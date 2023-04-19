@@ -9,7 +9,12 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
   const filteredEvents = sortedEvents.filter((event) => {
-    return new Date(event.date).getTime() > new Date().getTime();
+    const pastCurrentDate =
+      new Date(event.endDate ? event.endDate : event.date).getTime() >
+      new Date().getTime();
+    const pastPublishDate =
+      new Date(event.publishTime).getTime() < new Date().getTime();
+    return pastCurrentDate && pastPublishDate;
   });
   return (
     <>
@@ -25,7 +30,7 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
         </h1>
         <div className="grid items-center justify-center gap-8 px-20 py-8 text-center sm:grid-cols-1">
           {filteredEvents.map(
-            ({ _id, title, promoters, venue, date, link, imgURL }) => (
+            ({ _id, title, promoters, venue, date, endDate, link, imgURL }) => (
               <div key={_id} className="flex justify-center">
                 <Card
                   title={title}
@@ -37,6 +42,16 @@ const Events: NextPage<{ events: Event[] }> = ({ events }) => {
                     month: "numeric",
                     day: "numeric",
                   })}
+                  endDate={
+                    endDate
+                      ? new Date(endDate).toLocaleDateString("en-us", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                        })
+                      : undefined
+                  }
                   link={link}
                   imgURL={imgURL}
                 />
@@ -57,6 +72,8 @@ export const getStaticProps: GetStaticProps = async () => {
       promoters,
       venue,
       date,
+      endDate,
+      publishTime,
       link,
       'imgURL': image.asset->{...,
         metadata},

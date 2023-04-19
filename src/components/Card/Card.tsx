@@ -1,6 +1,14 @@
 import { Card } from "../../types/types";
 import { ImageBuilder } from "@components/ImageBuilder/ImageBuilder";
-const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
+const Card = ({
+  title,
+  promoters,
+  venue,
+  date,
+  endDate,
+  link,
+  imgURL,
+}: Card) => {
   return (
     //a card component that will be used to display events
     <div className="z-0 flex h-full flex-col  justify-between rounded bg-slate-50 p-4 shadow-lg lg:w-[80%]  lg:flex-row">
@@ -25,7 +33,9 @@ const Card = ({ title, promoters, venue, date, link, imgURL }: Card) => {
           {title}
         </h1>
         <p className="text-sm font-light text-gray-500 lg:text-lg">{venue}</p>
-        <p className="text-sm font-light text-gray-500 lg:text-lg">{date}</p>
+        <p className="text-sm font-light text-gray-500 lg:text-lg">
+          {endDate ? `${date} - ${endDate}` : date}
+        </p>
 
         {/* button */}
         <a
