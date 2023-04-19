@@ -30,16 +30,18 @@ const Home: NextPage<{ events: Event[]; brands: Brand[] }> = ({
             Our Brands
           </h1>
           <div className="grid items-center justify-center gap-8 px-20 py-4 text-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {brands.map(({ _id, name, imgURL, description }) => (
+            {brands.map(({ _id, name, imgURL, description, link }) => (
               <div
                 className="flex h-full flex-col items-start justify-start"
                 key={_id}
               >
-                <ImageBuilder
-                  imgURL={imgURL}
-                  name={name}
-                  style="aspect-square h-auto w-full"
-                />
+                <a href={link} target="_blank" rel="noreferrer">
+                  <ImageBuilder
+                    imgURL={imgURL}
+                    name={name}
+                    style="aspect-square h-auto w-full"
+                  />
+                </a>
                 <div>
                   <h2 className=" text-left text-2xl font-bold text-gray-700 ">
                     {name}

@@ -58,11 +58,13 @@ const Carousel = ({ events }: { events: Event[] }) => {
           className="relative mx-auto aspect-video h-auto w-[20rem] max-w-full overflow-hidden "
           key={event._id}
         >
-          <ImageBuilder
-            imgURL={event.carouselImgURL}
-            name={event.title}
-            style="h-full w-full object-cover"
-          />
+          <a href={event.link} target="_blank" rel="noreferrer">
+            <ImageBuilder
+              imgURL={event.carouselImgURL}
+              name={event.title}
+              style="h-full w-full object-cover"
+            />
+          </a>
           <div
             className="absolute bottom-0 flex h-1/2  w-full  flex-row
             items-center justify-center rounded-xl bg-gradient-to-t from-gray-900 opacity-50"
