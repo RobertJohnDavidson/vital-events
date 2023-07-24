@@ -1,5 +1,5 @@
 import { type AppType } from "next/app";
-
+import { Analytics } from "@vercel/analytics/react";
 // import { Source_Sans_3, Oswald } from "@next/font/google";
 import Layout from "~/components/Layout/Layout";
 import "~/styles/globals.css";
@@ -12,7 +12,12 @@ import "~/styles/globals.css";
 // });
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
-  return <Layout>{<Component {...pageProps} />}</Layout>;
+  return (
+    <Layout>
+      {<Component {...pageProps} />}
+      <Analytics />
+    </Layout>
+  );
 };
 
 export default MyApp;
